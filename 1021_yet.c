@@ -24,7 +24,18 @@ void init(cqueue* cq)
 void push(cqueue* cq, int data)
 {
     node* new_node = (node*)malloc(sizeof(node));
-    new_node
+    new_node->data = data;
+    if (cq->head == NULL)
+    {
+        cq->head = new_node;
+        cq->tail = new_node;
+        return;
+    }
+    else
+    {
+        new_node->next = cq->head;
+        cq->tail = new_node;
+    }
 }
 
 int pop(cqueue* cq)
@@ -51,7 +62,7 @@ int main(void)
     init(cque);
     for (int i = 1; i <= N; i++)
     {
-
+        push(cque, i);
     }
 
     return 0;
