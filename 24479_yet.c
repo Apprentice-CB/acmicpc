@@ -2,14 +2,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-void dfs(int** graph, int* visited, int N, int R)
+static int cnt = 0;
+
+void dfs(int** graph, int* visited, int R, int N, int* print_arr)
 {
-    visited[R] = 1;
+    visited[R-1] = 1;
+    print_arr[cnt] = R;
+    cnt++;
     for (int node = 0; node < N; node++)
     {
-        if (visited[node] == 0)
+        if (visited[node] == 0 && graph[R-1][node] == 1)
+        // node를 방문하지 않고, 인접한 노드
         {
-            dfs(graph, visited, N, node);
+            print_arr[R-1] = node;
+            dfs(graph, visited, node + 1, N, print_arr);
         }
     }
 }
@@ -27,12 +33,15 @@ int main(void)
     graph = (int**)malloc(sizeof(int*) * N);
     int* visited;
     visited = (int*)malloc(sizeof(int) * N);
+    int* print_arr;
+    print_arr = (int*)malloc(sizeof(int) * N);
     for (int i = 0; i < N; i++)
     {
         graph[i] = (int*)malloc(sizeof(int) * N);
+        memset(graph[i], 0, N * sizeof(int));
         visited[i] = 0;
+        print_arr[i] = 0;
     }
-    memset(graph, 0, N * N * sizeof(int));
 
     for (int i = 0; i < M; i++)
     {
@@ -40,11 +49,14 @@ int main(void)
         graph[u-1][v-1] = 1;
         graph[v-1][u-1] = 1;
     }
-    dfs(graph, visited, N, R-1);
+
+    dfs(graph, visited, R, N, print_arr);
+
     for (int i = 0; i < N; i++)
     {
-        printf("%d\n", visited[i]);
+        printf("%d\n", print_arr[i]);
     }
+
     free(graph);
     free(visited);
     return 0;
