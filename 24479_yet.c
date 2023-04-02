@@ -3,6 +3,7 @@
 #include <string.h>
 
 static int cnt = 0;
+static int graph
 
 void dfs(int** graph, int* visited, int R, int N, int* print_arr)
 {
