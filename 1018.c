@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(void)
 {
@@ -18,7 +19,7 @@ int main(void)
     {
         for (int colidx = 0; colidx < M-8; colidx++)
         {
-
+            
         }
     }
 
