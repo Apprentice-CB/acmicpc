@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 typedef struct node
 {
@@ -14,7 +15,7 @@ typedef struct queue
     struct node* last;
 } queue;
 
-int graph[100001][100001];
+node graph[100001];
 queue que;
 int visited[100001] = {0, };
 
@@ -54,22 +55,68 @@ int isEmpty(queue* q)
 
 int dequeue(queue* q)
 {
-    if (isEmpty(q))
-    {
-        return 100;
-    }
     node* temp;
     temp = q->first;
     int data = temp->data;
     q->first = temp->next;
+    printf("test\n");    
     free(temp);
+
     return data;
 }
 
-void bfs(int graph[][100001], int R, int N, int* visited, queue* q)
+void pushGraph(node* graphNode, int a)
+{
+    node* cur;
+    cur = graphNode;
+
+    node* temp = (node*)malloc(sizeof(node));
+    temp->data = a;
+    temp->next = NULL;
+    
+    while (cur->next != NULL)
+    {
+        cur = cur->next;
+    }
+    cur->next = temp;
+}
+
+void sortGraph(node* graphNode)
+{
+    int length = -1;
+    int temp;
+    node* cur;
+    cur = graphNode;
+    while(cur != NULL)
+    {
+        cur = cur->next;
+        length++;
+    }
+    cur = graphNode;
+    for (int i = 0; i < length; i++)
+    {
+        if (cur->next == NULL)
+        {       
+            break;
+        }
+        for (int j  = 0; j < length-1; j++) 
+        {
+            if (cur->data > cur->next->data)
+            {
+                temp = cur->data;
+                cur->data = cur->next->data;
+                cur->next->data = temp;
+            }
+            cur = cur->next;
+        }
+        cur = graphNode->next;
+    }
+}
+
+void bfs(node graph[100001], int R, int N, int* visited, queue* q)
 {
     int visited_order[N+1];
-    memset(visited_order, 0, sizeof(int)*N);
+    memset(visited_order, 0, sizeof(int)*(N+1));
     int cnt = 1;
     for (int v = 1; v <= N; v++)
     {
@@ -85,24 +132,31 @@ void bfs(int graph[][100001], int R, int N, int* visited, queue* q)
         }
     }
     enqueue(q, R);
+    printf("enqueue: %d\n", R);
     int u = 0;
+    int v = 0;
+    node* cur;
     while(!isEmpty(q))
     {
         u = dequeue(q);
-        for (int v = 1; v <= N; v++)
+        printf("dequeue: %d\n", u);
+        cur = &graph[u];
+        cur = cur->next;
+        while (cur != NULL)
         {
-            if (graph[u][v] == 1)
+            v = cur->data;
+            if (visited[v] == 0)    // If not visited
             {
-                if (visited[v] == 0)
-                {
-                    visited[v] = 1;
-                    visited_order[v] = cnt;
-                    cnt++;
-                    enqueue(q, v);
-                }
+                visited[v] = 1; // Then visit
+                visited_order[v] = cnt;
+                cnt++;
+                enqueue(q, v);
+                printf("enqueue: %d\n", v);
             }
+            cur = cur->next;
         }
     }
+
     for (int i = 1; i <= N; i++)
     {
         printf("%d\n", visited_order[i]);
@@ -121,11 +175,19 @@ int main(void)
     for (int i = 0; i < M; i++)
     {
         scanf(" %d %d", &row, &col);
-        graph[row][col] = 1;
-        graph[col][row] = 1;
+        pushGraph(&graph[row], col);
+        pushGraph(&graph[col], row);
     }
+    
+    node* cur;
+    for (int i = 1; i <= N; i++)
+    {   
+        sortGraph(&graph[i]);
+    }
+    
     initQueue(&que);
     
     bfs(graph, R, N, visited, &que);
 
+    return 0;
 }
