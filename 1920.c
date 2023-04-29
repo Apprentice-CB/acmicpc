@@ -20,7 +20,8 @@ int compare(const void* a, const void* b)
     }
 }
 
-int binary_search(int* arr, int N, int tgt)
+
+int binary_search(int *arr, int N, int tgt)
 {
     int first = 0;
     int last = N-1;
