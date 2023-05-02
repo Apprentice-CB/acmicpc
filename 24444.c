@@ -16,6 +16,7 @@ typedef struct queue
 } queue;
 
 node graph[100001];
+int vertexs[100001] = {0, };
 
 void initQueue(queue* q)
 {
@@ -110,6 +111,15 @@ void sortGraph(node* graphNode)
     }
 }
 
+int qsortGraph(const void* nodeA, const void* nodeB)
+{
+    node A = *(node*)nodeA;
+    node B = *(node*)nodeB;
+    int aa = A.data;
+    int bb = B.data;
+    return aa > bb;
+}
+
 void bfs(node graph[100001], int N, int R)
 {
     queue que;
@@ -163,13 +173,42 @@ int main(void)
         scanf(" %d %d", &row, &col);
         pushGraph(&graph[row], col);
         pushGraph(&graph[col], row);
+        vertexs[row]++;
+        vertexs[col]++;
     }
-    
+    /*
     for (int i = 1; i <= N; i++)
     {   
         sortGraph(&graph[i]);
     }
-    
+    */
+    node* temp;
+    for (int i = 1; i <= N; i++)
+    {
+        temp = graph[i].next;
+        printf("start: %d // ", i);
+        while(temp != NULL)
+        {
+            printf("%d ", temp->data);
+            temp = temp->next;
+        }
+        printf("\n");
+    }
+
+    printf("---------\n");
+    for (int i = 1; i <= N; i++)
+    {
+        qsort(&graph[i], vertexs[i]+1, sizeof(node), qsortGraph);
+        temp = graph[i].next;
+        printf("start: %d // ", i);
+        while (temp != NULL)
+        {
+            printf("%d ", temp->data);
+            temp = temp->next;
+        }
+        printf("\n");
+    }
+    printf("---------\n");
     bfs(graph, N, R);
 
     return 0;
