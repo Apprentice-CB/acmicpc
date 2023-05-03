@@ -10,9 +10,7 @@ int main(void)
     int B = 0;
     for (int i = 0; i < N; i++)
     {
-        scanf("%s", str);
-        A = atoi(&str[0]);
-        B = atoi(&str[2]);
+        scanf("%d,%d", &A, &B);
         printf("%d\n", A+B);
     }
 }
