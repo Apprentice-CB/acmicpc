@@ -3,6 +3,9 @@
 #include <string.h>
 #include <stdbool.h>
 
+int visited_order[100001] = {0, };
+int visited[100001] = {0, };
+
 typedef struct node
 {
     int data;
@@ -16,7 +19,6 @@ typedef struct queue
 } queue;
 
 node graph[100001];
-int vertexs[100001] = {0, };
 
 void initQueue(queue* q)
 {
@@ -66,13 +68,25 @@ void pushGraph(node* graphNode, int a)
 {
     node* cur;
     cur = graphNode;
-
+    
     node* temp = (node*)malloc(sizeof(node));
     temp->data = a;
     temp->next = NULL;
     
+    node* next_cur;
+    int data = 0;
+    int next_data = 0;
+    // add node while searching
     while (cur->next != NULL)
     {
+        data = cur->data;
+        next_data = cur->next->data;
+        if (a > data && next_data > a)
+        {
+            temp->next = cur->next;
+            cur->next = temp;
+            return;
+        }
         cur = cur->next;
     }
     cur->next = temp;
@@ -111,33 +125,21 @@ void sortGraph(node* graphNode)
     }
 }
 
-int qsortGraph(const void* nodeA, const void* nodeB)
-{
-    node A = *(node*)nodeA;
-    node B = *(node*)nodeB;
-    int aa = A.data;
-    int bb = B.data;
-    return aa > bb;
-}
 
 void bfs(node graph[100001], int N, int R)
 {
     queue que;
     initQueue(&que);
-    int visited_order[100001] = {0, };
-    int visited[100001] = {0, };
     int cnt = 1;
     visited[R] = 1;
     visited_order[R] = cnt;
     cnt++;
     enqueue(&que, R);
-    int u = 0;
     int v = 0;
     node* cur;
     while(!isEmpty(&que))
     {
-        u = dequeue(&que);
-        cur = &graph[u];
+        cur = &graph[dequeue(&que)];
         cur = cur->next;
         while (cur != NULL)
         {
@@ -170,45 +172,11 @@ int main(void)
     int row = 0;
     for (int i = 0; i < M; i++)
     {
-        scanf(" %d %d", &row, &col);
+        scanf("%d %d", &row, &col);
         pushGraph(&graph[row], col);
         pushGraph(&graph[col], row);
-        vertexs[row]++;
-        vertexs[col]++;
-    }
-    /*
-    for (int i = 1; i <= N; i++)
-    {   
-        sortGraph(&graph[i]);
-    }
-    */
-    node* temp;
-    for (int i = 1; i <= N; i++)
-    {
-        temp = graph[i].next;
-        printf("start: %d // ", i);
-        while(temp != NULL)
-        {
-            printf("%d ", temp->data);
-            temp = temp->next;
-        }
-        printf("\n");
     }
 
-    printf("---------\n");
-    for (int i = 1; i <= N; i++)
-    {
-        qsort(&graph[i], vertexs[i]+1, sizeof(node), qsortGraph);
-        temp = graph[i].next;
-        printf("start: %d // ", i);
-        while (temp != NULL)
-        {
-            printf("%d ", temp->data);
-            temp = temp->next;
-        }
-        printf("\n");
-    }
-    printf("---------\n");
     bfs(graph, N, R);
 
     return 0;
