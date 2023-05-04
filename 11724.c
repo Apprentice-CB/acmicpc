@@ -8,7 +8,14 @@ uint8_t visited[1001];
 
 int DFS(uint8_t graph[][1001], int N, int start)
 {
-
+    visited[start] = 1;
+    for (int i = 1; i <= N; i++)
+    {
+        if (visited[i] == 0 && graph[start][i] == 1)
+        {
+            DFS(graph, N, i);
+        }
+    }
 }
 
 int main(void)
@@ -29,6 +36,13 @@ int main(void)
     }
 
     int cnt = 0;
-    cnt += DFS(graph, N, start);
+    for (int i = 1; i <= N; i++)
+    {
+        if (visited[i] == 0)
+        {
+            DFS(graph, N, i);
+            cnt++;
+        }
+    }
     printf("%d", cnt);
 }
