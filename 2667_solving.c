@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef struct node
 {
@@ -54,7 +55,30 @@ node dequeue(queue* que)
 }
 
 char map[25][25] = {0, };
+bool visited[25][25] = {false, };
 int size[25] = {0, };
+
+int BFS(char** map, int N, int start_x, int start_y)
+{
+    queue que;
+    initQueue(&que);
+    int size = 1;
+    enqueue(&que, start_x, start_y);
+    int x = 0;
+    int y = 0;
+    node temp;
+    while(queue.first != NULL)
+    {
+        temp = dequeue(&que);
+        x = temp.x;
+        y = temp.y;
+        if (visited[x][y] == false && map[x][y] == '1')
+        {
+            size++;
+            enqueue(&que, x, y);
+        }
+    }
+}
 
 int main(void)
 {
