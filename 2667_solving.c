@@ -76,7 +76,10 @@ int main(void)
     {
         for (int yidx = 0; yidx < N; yidx++)
         {
-            
+            if (visited[xidx][yidx] == 0 && map[xidx][yidx] == '1')
+            {
+                
+            }
         }
     }
 
