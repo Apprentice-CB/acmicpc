@@ -8,5 +8,5 @@ int main(void)
     int n = 0;
     int K = 0;
     scanf("%d %d %d", &N, &M, &K);
-    printf("%d %d", K / M, K / N);
+    printf("%d %d", K / M, K % M);
 }
