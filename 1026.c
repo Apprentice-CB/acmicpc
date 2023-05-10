@@ -50,17 +50,6 @@ int main(void)
 
     for (int i = 0; i < N; i++)
     {
-        printf("%d ", arrA[i]);
-    }
-    printf("\n");
-    for (int i = 0; i < N; i++)
-    {
-        printf("%d ", arrB[i]);
-    }
-    printf("\n");
-
-    for (int i = 0; i < N; i++)
-    {
         sum += arrA[i]*arrB[i];
     }
     printf("%d", sum);
