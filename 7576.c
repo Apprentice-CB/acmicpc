@@ -75,6 +75,7 @@ int main(void)
         }
     }
 
-
+    int** map_cpy = (int**)malloc(sizeof(int*) * N);
+    
 
 }
