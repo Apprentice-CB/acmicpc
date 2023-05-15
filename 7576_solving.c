@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 typedef struct node
 {
@@ -51,37 +52,42 @@ node dequeue(queue* que)
     return output;
 }
 
-void BFS(int** map, int N, int M, int nidx, int midx)
+bool BFS(int** map, int N, int M, int* cnt)
 {
-    queue que;
-    initQueue(&que);
-    int** visited = (int**)malloc(sizeof(int*) * N);
-    for (int i = 0; i < N; i++)
-    {
-        visited[i] = (int*)malloc(sizeof(int) * M);
-        memset(visited[i], 0, sizeof(int) * M);
-    }
-    visited[nidx][midx] = 0;
-    enqueue(&que, nidx, midx);
+    bool next = false;
+    int day = *cnt;
+
     int n_next = 0;
     int m_next = 0;
     int dx[4] = {1, -1, 0, 0};
     int dy[4] = {0, 0, 1, -1};
-    node cur;
-    while (que.first != NULL)
+    for (int nidx = 0; nidx < N; nidx++)
     {
-        cur = dequeue(&que);
-        for (int i = 0; i < 4; i++)
+        for (int midx = 0; midx < M; midx++)
         {
-            n_next = cur.x + dx[i];
-            m_next = cur.y + dy[i];
-            if (visited[n_next][m_next] == 0 && map[n_next][m_next] == 0)
+            if (map[nidx][midx] == 1)
             {
-                enqueue(&que, n_next, m_next);
-                visited[n_next][m_next] = 1;
+                for (int i = 0; i < 4; i++)
+                {
+                    n_next = nidx + dx[i];
+                    m_next = midx + dy[i];
+                    if (0 <= n_next && n_next < N && 0 <= m_next && m_next < M)
+                    {
+                        if (map[n_next][m_next] == 0)
+                        {
+                            next = true;
+                            map[n_next][m_next] = 1;
+                        }
+                    }
+                }
+                if (next == true)
+                {
+                    day++;
+                }
             }
         }
     }
+    return next;
 }
 
 int main(void)
@@ -110,19 +116,36 @@ int main(void)
         memcpy(map_cpy[i], map[i], sizeof(int) * M);
     }
 
+    int** visited = (int**)malloc(sizeof(int*) * N);
+    for (int i = 0; i < N; i++)
+    {
+        visited[i] = (int*)malloc(sizeof(int) * M);
+        memset(visited[i], 0, sizeof(int) * M);
+    }
+
+    int result = 0;
     for (int nidx = 0; nidx < N; nidx++)
     {
         for (int midx = 0; midx < M; midx++)
         {
             if (map_cpy[nidx][midx] == 1)
             {
-                BFS(map, N, M, nidx, midx);
+                BFS(map, N, M, &result);
+                
             }
         }
     }
 
     for (int nidx = 0; nidx < N; nidx++)
     {
-        for (int m)
+        for (int midx = 0; midx < M; midx++)
+        {
+            if (map[nidx][midx] == 0)
+            {
+                printf("-1");
+                return 0;
+            }
+        }
     }
+    printf("%d", result);
 }
