@@ -116,13 +116,6 @@ int main(void)
         memcpy(map_cpy[i], map[i], sizeof(int) * M);
     }
 
-    int** visited = (int**)malloc(sizeof(int*) * N);
-    for (int i = 0; i < N; i++)
-    {
-        visited[i] = (int*)malloc(sizeof(int) * M);
-        memset(visited[i], 0, sizeof(int) * M);
-    }
-
     int result = 0;
     for (int nidx = 0; nidx < N; nidx++)
     {
@@ -131,7 +124,6 @@ int main(void)
             if (map_cpy[nidx][midx] == 1)
             {
                 BFS(map, N, M, &result);
-                
             }
         }
     }
