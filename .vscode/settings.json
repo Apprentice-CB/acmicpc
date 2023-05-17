@@ -38,6 +38,7 @@
   "C_Cpp_Runner.showCompilationTime": false,
   "files.associations": {
     "4963.C": "cpp",
-    "stdbool.h": "c"
+    "stdbool.h": "c",
+    "stdio.h": "c"
   }
 }
