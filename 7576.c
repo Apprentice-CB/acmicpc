@@ -52,42 +52,47 @@ node dequeue(queue* que)
     return output;
 }
 
-bool BFS(int** map, int N, int M, int* cnt)
+void BFS(int** map, int N, int M)
 {
-    bool next = false;
-    int day = *cnt;
-
-    int n_next = 0;
-    int m_next = 0;
-    int dx[4] = {1, -1, 0, 0};
-    int dy[4] = {0, 0, 1, -1};
+    queue que;
+    initQueue(&que);
     for (int nidx = 0; nidx < N; nidx++)
     {
         for (int midx = 0; midx < M; midx++)
         {
             if (map[nidx][midx] == 1)
             {
-                for (int i = 0; i < 4; i++)
-                {
-                    n_next = nidx + dx[i];
-                    m_next = midx + dy[i];
-                    if (0 <= n_next && n_next < N && 0 <= m_next && m_next < M)
-                    {
-                        if (map[n_next][m_next] == 0)
-                        {
-                            next = true;
-                            map[n_next][m_next] = 1;
-                        }
-                    }
-                }
-                if (next == true)
-                {
-                    day++;
-                }
+                enqueue(&que, nidx, midx);
+                //printf("enqueue %d %d\n", nidx, midx);
             }
         }
     }
-    return next;
+
+    int n_next = 0;
+    int m_next = 0;
+    int dx[4] = {1, -1, 0, 0};
+    int dy[4] = {0, 0, 1, -1};
+    node temp;
+    while(que.first != NULL)
+    {
+        temp = dequeue(&que);
+        for (int i = 0; i < 4; i++)
+        {
+            n_next = temp.x + dx[i];
+            m_next = temp.y + dy[i];
+            if (0 <= n_next && n_next < N && 0 <= m_next && m_next < M)
+            {
+                if (map[n_next][m_next] == 0)
+                {
+                    enqueue(&que, n_next, m_next);
+                    //printf("enqueue %d %d\n", n_next, m_next);
+                    map[n_next][m_next] = map[temp.x][temp.y] + 1;
+                }
+            }
+        }
+        
+    }
+    //printf("%d %d", n_next, m_next);
 }
 
 int main(void)
@@ -109,24 +114,8 @@ int main(void)
         }
     }
 
-    int** map_cpy = (int**)malloc(sizeof(int*) * N);
-    for (int i = 0; i < N; i++)
-    {
-        map_cpy[i] = (int*)malloc(sizeof(int) * M);
-        memcpy(map_cpy[i], map[i], sizeof(int) * M);
-    }
-
     int result = 0;
-    for (int nidx = 0; nidx < N; nidx++)
-    {
-        for (int midx = 0; midx < M; midx++)
-        {
-            if (map_cpy[nidx][midx] == 1)
-            {
-                BFS(map, N, M, &result);
-            }
-        }
-    }
+    BFS(map, N, M);
 
     for (int nidx = 0; nidx < N; nidx++)
     {
@@ -137,7 +126,14 @@ int main(void)
                 printf("-1");
                 return 0;
             }
+            else
+            {
+                if (map[nidx][midx] > result)
+                {
+                    result = map[nidx][midx];
+                }
+            }
         }
     }
-    printf("%d", result);
+    printf("%d", result-1);
 }
