@@ -10,10 +10,6 @@ int main(void)
         {
             printf("*");
         }
-        for (int j = i; j < N; j++)
-        {
-            printf(" ");
-        }
         printf("\n");
     }
     for (int i = 0; i < N; i++)
@@ -26,10 +22,6 @@ int main(void)
         for (int j = i; j < 2*N; j++)
         {
             printf("*");
-        }
-        for (int j = N+1; j < i; j++)
-        {
-            printf(" ");
         }
         printf("\n");
     }

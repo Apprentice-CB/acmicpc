@@ -14,7 +14,7 @@ int main(void)
     {
         printf("Isosceles");
     }
-    else if ((a ! = b && b != c && c != a) && (a + b + c == 180))
+    else if ((a != b && b != c && c != a) && (a + b + c == 180))
     {
         printf("Scalene");
     }
