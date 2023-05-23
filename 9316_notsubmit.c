@@ -6,6 +6,6 @@ int main(void)
     scanf("%d", &N);
     for (int i = 1; i <= N; i++)
     {
-        printf("Hello World, Judge %d\n", i);
+        printf("Hello World, Judge %d!\n", i);
     }
 }
