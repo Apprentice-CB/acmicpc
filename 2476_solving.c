@@ -20,13 +20,12 @@ int main(void)
     scanf("%d", &N);
     for (int i = 0; i < N; i++)
     {
-        temp = 0;
         scanf("%d %d %d", &a, &b, &c);
         if (a == b && b == c)
         {
             temp = 10000 + a * 1000;
         }
-        else if (a == b && b != c)
+        else if (a == b || a != c)
         {
             temp = 1000 + a * 100;
         }
