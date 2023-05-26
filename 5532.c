@@ -20,11 +20,11 @@ int main(void)
     }
     if (B % D == 0)
     {
-        bb = A / C;
+        bb = B / D;
     }
     else
     {
-        bb = A / C + 1;
+        bb = B / D + 1;
     }
     if (aa > bb)
     {
