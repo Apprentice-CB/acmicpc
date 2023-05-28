@@ -21,19 +21,15 @@ int main(void)
     for (int i = 0; i < N; i++)
     {
         scanf("%d %d %d", &a, &b, &c);
-        if (a == b && b == c)
+        if (a == b && b == c && a == c)
         {
             temp = 10000 + a * 1000;
         }
-        else if (a == b || a != c)
+        else if (a == b || a == c)
         {
             temp = 1000 + a * 100;
         }
-        else if (a == c && a != b)
-        {
-            temp = 1000 + a * 100;
-        }
-        else if (b == c || a != b)
+        else if (b == c)
         {
             temp = 1000 + b * 100;
         }
