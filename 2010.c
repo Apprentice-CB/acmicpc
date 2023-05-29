@@ -11,5 +11,5 @@ int main(void)
         scanf("%d", &a);
         sum += a;
     }
-    printf("%d", sum - a + 1);
+    printf("%d", sum - N + 1);
 }

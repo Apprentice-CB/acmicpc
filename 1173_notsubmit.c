@@ -11,19 +11,21 @@ int main(void)
     int cur = m;
     int cnt = 0;
     int t = 0;
+    if (cur + T > M)
+    {
+        printf("-1");
+        return 0;
+    }
     while (cnt != N)
     {
-        if (cur + T > M && cur - R < m)
-        {
-            t = 0;
-            break;
-        }
+
         if (cur + T <= M)
         {
             cur = cur + T;
             cnt++;
+            t++;
         }
-        else if (cur + T > M)
+        else
         {
             if (cur - R < m)
             {
@@ -38,10 +40,6 @@ int main(void)
         }
 
     }
-    if (t == 0) t = -1;
-    else
-    {
-        t += N;
-    }
+    
     printf("%d", t);
 }
