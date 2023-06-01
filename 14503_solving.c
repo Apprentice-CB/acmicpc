@@ -10,9 +10,12 @@ int dy[4] = {0, 1, 0, -1};
 
 void dfs(int** map, int** visited, int N, int M, int n_start, int m_start, int dir)
 {
-    if ()
-    visited[n_start][m_start] = 1;
-    area++;
+    if (visited[n_start][m_start] == 0)
+    {
+        area++;
+        visited[n_start][m_start] = 1;        
+    }
+
     int n_next = 0;
     int m_next = 0;
     int status = 0;
@@ -38,14 +41,26 @@ void dfs(int** map, int** visited, int N, int M, int n_start, int m_start, int d
     {
         n_next = n_start - dx[dir];
         m_next = m_start - dy[dir];
-        if (map[n_next][m_next] != 1)
+        if (map[n_next][m_next] != 1 && visited[n_next][m_next] == 0 &&
+        0 <= n_next && n_next < N && 0 <= m_next && m_next < M)
         {
             dfs(map, visited, N, M, n_next, m_next, dir);
+        }
+        else
+        {
+            return;
         }
     }
     else if (status == 3)
     {
         dir = (dir + 3) % 4;
+        n_next = n_start + dx[dir];
+        m_next = m_start + dy[dir];
+        if (map[n_next][m_next] != 1 && visited[n_next][m_next] == 0 &&
+        0 <= n_next && n_next < N && 0 <= m_next && m_next < M)
+        {
+            dfs(map, visited, N, M, n_next, m_next, dir);
+        }
     }
 }
 
@@ -68,7 +83,7 @@ int main(void)
         memset(visited[nidx], 0, sizeof(int) * M);
     }
 
-    for (nidx = 0; nidx < N; nidx++);
+    for (nidx = 0; nidx < N; nidx++)
     {
         for (midx = 0; midx < M; midx++)
         {
@@ -78,4 +93,15 @@ int main(void)
 
     dfs(map, visited, N, M, n_start, m_start, dir);
 
+    printf("%d", area);
+    /*
+    for (nidx = 0; nidx < N; nidx++)
+    {
+        for (midx = 0; midx < M; midx++)
+        {
+            printf("%d ", map[nidx][midx]);
+        }
+        printf("\n");
+    }
+    */
 }
