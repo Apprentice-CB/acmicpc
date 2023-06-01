@@ -5,16 +5,48 @@
 int nidx = 0;
 int midx = 0;
 int area = 0;
-int dx[4] = {1, -1, 0, 0};
-int dy[4] = {0, 0, 1, -1};
+int dx[4] = {-1, 0, 1, 0};  // n, e, s, w
+int dy[4] = {0, 1, 0, -1};
 
 void dfs(int** map, int** visited, int N, int M, int n_start, int m_start, int dir)
 {
+    if ()
     visited[n_start][m_start] = 1;
     area++;
     int n_next = 0;
     int m_next = 0;
-    
+    int status = 0;
+    int i = 0;
+    for (i = 0; i < 4; i++)
+    {
+        n_next = n_start + dx[i];
+        m_next = m_start + dy[i];
+        if (0 <= n_next && n_next < N && 0 <= m_next && m_next < M)
+        {
+            if (visited[n_next][m_next] == 1)
+            {
+                status = 2; // all adjacent areas are cleaned
+            }
+            else
+            {
+                status = 3;
+                break;
+            }
+        }
+    }
+    if (status == 2)
+    {
+        n_next = n_start - dx[dir];
+        m_next = m_start - dy[dir];
+        if (map[n_next][m_next] != 1)
+        {
+            dfs(map, visited, N, M, n_next, m_next, dir);
+        }
+    }
+    else if (status == 3)
+    {
+        dir = (dir + 3) % 4;
+    }
 }
 
 int main(void)
