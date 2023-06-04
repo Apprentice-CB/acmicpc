@@ -91,10 +91,71 @@ int main(void)
         }
     }
 
-    dfs(map, visited, N, M, n_start, m_start, dir);
+    //dfs(map, visited, N, M, n_start, m_start, dir);
+    int n_next = 0;
+    int m_next = 0;
+    int status = 0;
+    int n_prev = n_start;
+    int m_prev = m_start;
+    while(1)
+    {
+        if (map[n_prev][m_prev] == 0)
+        {
+            map[n_prev][m_prev] = 2;
+            area++;
+            printf("cleaned %d, %d, area = %d", n_prev, m_prev, area);
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            n_next = n_prev + dx[i];
+            m_next = m_prev + dy[i];
+            if (0 <= n_next && n_next < N && 0 <= m_next && m_next < M)
+            {
+                if (map[n_next][m_next] != 0)
+                {
+                    status = 2; // all adjacent areas are cleaned
+                }
+                else
+                {
+                    status = 3;
+                    break;
+                }
+            }
+        }
+        printf("status = %d\n", status);
+        if (status == 2)
+        {
+            n_next = n_prev - dx[dir];
+            m_next = m_prev - dy[dir];
+            if (0 <= n_next && n_next < N && 0 <= m_next && m_next < M)
+            {
+                if (map[n_next][m_next] == 1)
+                {
+                    break;
+                }
+            }
+        }
+        else if (status == 3)
+        {
+            dir = (dir + 3) % 4;
+            n_next = n_prev + dx[dir];
+            m_next = m_prev + dy[dir];
+            if (map[n_next][m_next] == 0 && 
+            0 <= n_next && n_next < N && 0 <= m_next && m_next < M)
+            {
+                
+            }
+        }
+        n_prev = n_next;
+        m_prev = m_next;
+        printf("current n = %d, current m = %d\n", n_prev, m_prev);
+
+    }
+
 
     printf("%d", area);
-    /*
+    
     for (nidx = 0; nidx < N; nidx++)
     {
         for (midx = 0; midx < M; midx++)
@@ -103,5 +164,6 @@ int main(void)
         }
         printf("\n");
     }
-    */
+    return 0;
+    
 }
