@@ -16,6 +16,10 @@ int main(void)
         {
             printf("ptr = &a;\n");
         }
+        else if (i == 1)
+        {
+            printf("ptr2 = &ptr;\n");
+        }
         else
         {
             printf("ptr%d = &ptr%d;\n", i+1, i);
