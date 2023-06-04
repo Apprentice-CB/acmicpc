@@ -46,6 +46,8 @@ void dfs(int** map, int** visited, int N, int M, int n_start, int m_start, int d
     else if (status == 3)
     {
         dir = (dir + 3) % 4;
+        n_next = n_start + dx[dir];
+        m_next
     }
 }
 
