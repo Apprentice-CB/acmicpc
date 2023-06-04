@@ -29,5 +29,5 @@ int main(void)
             ans = i;
         }
     }
-    printf("%d", max);
+    printf("%d", ans);
 }
