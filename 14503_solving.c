@@ -106,6 +106,8 @@ int main(void)
             printf("cleaned %d, %d, area = %d", n_prev, m_prev, area);
         }
 
+        
+
         for (int i = 0; i < 4; i++)
         {
             n_next = n_prev + dx[i];
