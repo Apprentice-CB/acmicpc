@@ -8,7 +8,7 @@ int main(void)
     for (int i = 1; i <= N; i++)
     {
         getchar();
-        scanf(" %[^\n]", in);
+        scanf("%[^\n]", in);
         printf("%d. %s\n", i, in);
     }
     return 0;
