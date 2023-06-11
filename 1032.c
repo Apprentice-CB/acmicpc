@@ -21,5 +21,8 @@ int main(void)
             }
         }
     }
-    printf("%s", ans);
+    for (int i = 0; i < strlen(input); i++)
+    {
+        printf("%c", ans[i]);
+    }
 }
