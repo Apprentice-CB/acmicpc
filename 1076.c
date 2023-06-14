@@ -14,7 +14,7 @@ int main(void)
     char violet[] = "violet";
     char grey[] = "grey";
     char white[] = "white";
-    int r = 0;
+    long long r = 0;
     scanf("%s", c);
     if (!strcmp(c, black))
     {
@@ -139,5 +139,5 @@ int main(void)
     {
         r = r*1000000000;
     } 
-    printf("%d", r);
+    printf("%lld", r);
 }
