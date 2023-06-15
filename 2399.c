@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 int main(void)
 {
@@ -15,8 +16,8 @@ int main(void)
     {
         for (int j = i+1; j < n; j++)
         {
-            sum += (arr[i] - arr[j]) * (arr[i] - arr[j]);
+            sum += abs(arr[i] - arr[j]);
         }
     }
-    printf("%lld", sum);
+    printf("%lld", sum*2);
 }
