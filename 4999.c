@@ -3,11 +3,11 @@
 
 int main(void)
 {
-    char a[1001];
-    char b[1001];
+    char a[1002];
+    char b[1002];
     scanf("%s", a);
     scanf("%s", b);
-    if (strlen(a) > strlen(b))
+    if (strlen(a) >= strlen(b))
     {
         printf("go");
     }
