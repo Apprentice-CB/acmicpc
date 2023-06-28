@@ -3,10 +3,10 @@
 
 int main(void)
 {
-    char A[7];
-    char B[7];
+    char A[10001];
+    char B[10001];
     scanf("%s %s", A, B);
-    int sum = 0;
+    long long int sum = 0;
     for (int aidx = 0; aidx < strlen(A); aidx++)
     {
         for (int bidx = 0; bidx < strlen(B); bidx++)
@@ -14,5 +14,5 @@ int main(void)
             sum += (A[aidx]-48) * (B[bidx]-48);
         }
     }
-    printf("%d", sum);
+    printf("%lld", sum);
 }
