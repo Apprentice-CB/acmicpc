@@ -4,20 +4,21 @@
 
 int main(void)
 {
-    uint32_t S = 0;
-    scanf("%d", &S);
+    long long S = 0;
+    scanf("%lld", &S);
     int N = 0;
-    int i = 1;
-    int sum = 0;
+    int i = 0;
+    long long sum = 0;
     while(1)
     {
-        if (sum + i > S)
+        sum += i;
+        i++;
+        N++;
+        if (sum > S)
         {
+            N--;
             break;
         }
-        sum += i;
-        N++;
-        i++;
     }
     printf("%d", N);
 }
