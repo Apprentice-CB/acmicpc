@@ -7,7 +7,7 @@ int main(void)
     long long S = 0;
     scanf("%lld", &S);
     int N = 0;
-    int i = 0;
+    int i = 1;
     long long sum = 0;
     while(1)
     {
