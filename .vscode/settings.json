@@ -39,7 +39,8 @@
   "files.associations": {
     "4963.C": "cpp",
     "stdbool.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "stdlib.h": "c"
   },
   "C_Cpp_Runner.msvcWarnings": [
     "/W4",

@@ -29,14 +29,12 @@ int main(void)
 
     qsort(arr, N, sizeof(node), compare);
 
-    int len = 0;
-    int temp = 0;
-    for (int i = 0; i < N; i++)
+    printf("%s\n", arr[0].word);
+    for (int i = 1; i < N; i++)
     {
-        if (strcmp(arr[temp].word, arr[i].word))
+        if (strcmp(arr[i-1].word, arr[i].word))
         {
-            printf("%s\n", arr[temp].word);
-            temp = i;
+            printf("%s\n", arr[i].word);
         }
     }
 
