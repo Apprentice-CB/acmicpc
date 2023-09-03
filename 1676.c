@@ -1,19 +1,18 @@
 #include <stdio.h>
 
-int main(void)
-{
-    int N = 0;
-    scanf("%d", &N);
-    if (N == 0)
-    {
-        printf("0");
-        return 0;
-    }
-    int cnt = 0;
-    for (int i = 1; i <= N; i++)
-    {
-        if (i % 5 == 0)
-            cnt++;
-    }
-    printf("%d", cnt);
+int main() {
+	int N;
+	int mul5 = 0;	
+	int mul25 = 0;	
+	int mul125 = 0;	
+
+	scanf("%d", &N);
+
+	mul5 = N / 5;
+	mul25 = N / 25;
+	mul125 = N / 125;
+
+	printf("%d", mul5 + mul25 + mul125);
+
+	return 0;
 }
