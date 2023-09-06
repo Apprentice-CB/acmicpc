@@ -10,7 +10,7 @@ typedef struct node
     int num;
 } node;
 
-node A[2010];
+node A[10010];
 int loaded[2010];
 
 int compare(const void* a, const void* b)
