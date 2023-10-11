@@ -3,49 +3,48 @@
 #define MAX_N (100000)
 
 int N, M;
-int need[MAX_N];
+int need[MAX_N+10];
+int s, e;
+
+int max(int a, int b)
+{
+    if (a > b) return a;
+    return b;
+}
 
 void Input_Data(void) {
-	int i;
+    s = 0; e = 0;
 	scanf("%d %d", &N, &M);
-	for (i = 0; i < N;i++) {
+	for (int i = 0; i < N;i++) {
 		scanf("%d", &need[i]);
+        s = max(s, need[i]);
+        e += need[i];
 	}
 }
 
-int isPossible(int K)
+int isPossible(int mid)
 {
-    int money = K;
+    int money = mid;
     int cnt = 1;
     for (int i = 0; i < N; i++)
     {
-        if (money - need[i] >= 0)
+        money = money - need[i];
+        if (money <= 0)
         {
-            money = money - need[i];
-        }
-        else
-        {
-            money = K;
+            money = mid - need[i];
             cnt++;
-            // printf("Inchul: %d\n", i);
-            if (money - need[i] < 0) return 0;
-            money = money - need[i];
         }
-        if (cnt > M) return 0;
     }
-    // printf("K = %d, possible: %d\n", K, cnt<=M);
-    return 1;
+    return cnt <= M;
 }
 
 int main(void) {
 	int sol = -1;
 
-	// 입력 받는 부분
 	Input_Data();
 
 	// 여기서부터 작성
-    int s = 1;
-    int e = 1 << 29;
+
     int m;
 
     while(s <= e)
